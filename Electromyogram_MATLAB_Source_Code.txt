@@ -1,0 +1,25 @@
+%Real-Time EMG plotter using while loop
+%Before starting.Please install the Arduino support on MATLAB........
+>> global a;
+>> if~isempty(instrfind);
+fclose(instrafind);
+delete(instrafind);
+end
+%Arduino object ---> Use ; to continue process without details
+>> a=arduino
+%Time limit-->1000 is default value
+>> tlimit=1000;
+>> time=1;
+>> EMG=0;
+>> while(time<tlimit)
+     Samples=readVoltage(a,'A0');
+     EMG=[EMG,Samples];
+     plot(EMG)
+%Adding the labels
+xlabel('Time');
+ylabel('EMG/Voltage');
+title('Real-time EMG plotting --> Arduino Uno');
+     grid ON
+     time=time+1;
+     drawnow
+end
